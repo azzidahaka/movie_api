@@ -31,8 +31,10 @@ let movies = [
 app.get('/', (req, res) => {
   res.send('Welcome to myFlix!');
 });
-
-
+//return movies in json format
+app.get('/movies', (req, res) => {
+    res.json(movies);
+  });
 
 //respond with error message if a request fails
 app.use((err, req, res, next) => {
