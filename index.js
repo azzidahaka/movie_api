@@ -1,6 +1,7 @@
 //import from packages
 const express = require('express'),
   fs = require('fs'),
+  path = require('path'),
   morgan = require('morgan');
 
 const app = express();
