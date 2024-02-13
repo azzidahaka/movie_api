@@ -11,10 +11,28 @@ const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), { 
 app.use(morgan('combined', { stream: accessLogStream }));
 app.use('/documentation.html', express.static('public')); //use express to serve documentation.html
 
+//Array of movies and director
+let movies = [
+    {
+      title: "Harry Potter and the Sorcerer's Stone",
+      director: 'Chris columbus',
+    },
+    {
+      title: 'Lord of the Rings',
+      director: 'Peter Jackson',
+    },
+    {
+      title: 'Twilight',
+      director: ' Catherine Hardwicke',
+    },
+  ];
+
 //return message when get is used at "/"
 app.get('/', (req, res) => {
   res.send('Welcome to myFlix!');
 });
+
+
 
 //respond with error message if a request fails
 app.use((err, req, res, next) => {

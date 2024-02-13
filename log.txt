@@ -40,3 +40,8 @@ Timestamp: Sun Feb 11 2024 23:30:35 GMT-0700 (Mountain Standard Time)
 URL: /favicon.ico
 Timestamp: Sun Feb 11 2024 23:30:35 GMT-0700 (Mountain Standard Time)
 
+::1 - - [13/Feb/2024:22:33:25 +0000] "GET /documents HTTP/1.1" 404 148 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36"
+::1 - - [13/Feb/2024:22:33:25 +0000] "GET /favicon.ico HTTP/1.1" 404 150 "http://localhost:8080/documents" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36"
+::1 - - [13/Feb/2024:22:33:32 +0000] "GET /documentation HTTP/1.1" 404 152 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36"
+::1 - - [13/Feb/2024:22:33:55 +0000] "GET / HTTP/1.1" 200 18 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36"
+::1 - - [13/Feb/2024:22:42:04 +0000] "GET /movies HTTP/1.1" 200 191 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36"
