@@ -9,7 +9,7 @@ const app = express();
 // a ‘log.txt’ file is created in root directory
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), { flags: 'a' });
 app.use(morgan('combined', { stream: accessLogStream }));
-app.use('/documentation.html', express.static('public')); //use express to serve documentation.html
+app.use(express.static('public')); //use express to serve html
 
 //Array of movies and director
 let movies = [
@@ -18,13 +18,41 @@ let movies = [
       director: 'Chris columbus',
     },
     {
-      title: 'Lord of the Rings',
+      title: 'The Lord of the Rings: The Return of the King',
       director: 'Peter Jackson',
     },
     {
       title: 'Twilight',
       director: ' Catherine Hardwicke',
     },
+    {
+        title: 'The Dark Knight',
+        director: 'Christopher Nolan',
+      },
+    {
+        title: '12 Angry Men',
+        director: 'Sidney Lumet',
+      },
+    {
+        title: 'Schindler \'s List',
+        director: 'Steven Spielberg',
+      },
+    {
+        title: 'Pulp Fiction',
+        director: 'Quentin Tarantino',
+      },
+    {
+        title: 'The Lord of the Rings: The Fellowship of the Ring',
+        director: 'Peter Jackson',
+      },
+    {
+        title: 'The Good, the Bad and the Ugly',
+        director: 'Sergio Leone',
+      },
+    {
+        title: 'The Godfather',
+        director: 'Francis Ford Coppola',
+      },
   ];
 
 //return message when get is used at "/"
