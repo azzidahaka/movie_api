@@ -8,7 +8,6 @@ app.use(morgan('common'));
 // Serve static files from the 'public' directory
 app.use(express.static('public'));
 
-
 //Array of movies and director
 let movies = [
   {
@@ -61,7 +60,14 @@ app.get('/', (req, res) => {
 app.get('/movies', (req, res) => {
   res.json(movies);
 });
-
+// Gets the data about a single movie, by name
+app.get('/movies/:title', (req, res) => {
+  res.json(
+    movies.find((movie) => {
+      return movie.title === req.params.title;
+    })
+  );
+});
 //respond with error message if a request fails
 app.use((err, req, res, next) => {
   console.error(err.stack);
