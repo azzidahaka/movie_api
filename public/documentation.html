@@ -1,19 +1,225 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
     <title>Document</title>
-</head>
-<body>
-    <p>Return a list of ALL movies to the user</p>
-    <p>Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user</p>
-    <p>Return data about a genre (description) by name/title (e.g., “Thriller”)</p>
-    <p>Return data about a director (bio, birth year, death year) by name</p>
-    <p>Allow new users to register</p>
-    <p>Allow users to update their user info (username, password, email, date of birth)</p>
-    <p>Allow users to add a movie to their list of favorites</p>
-    <p>Allow users to remove a movie from their list of favorites</p>
-    <p>Allow existing users to deregister</p>
-</body>
+    <style>
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th {
+        background-color: #beb5b5;
+      }
+      th,
+      td {
+        border: 1px solid black;
+        text-align: left;
+        padding: 8px;
+      }
+      pre code {
+        background-color: #eee;
+        border: 1px solid #999;
+        display: block;
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Business Logic</th>
+          <th scope="col">URL</th>
+          <th scope="col">HTTP Method</th>
+          <th scope="col">Request body data format</th>
+          <th scope="col">Response body data format</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td scope="row">Return a list of ALL movies to the user</td>
+          <td>/movies</td>
+          <td>GET</td>
+          <td>None</td>
+          <td>A JSON object holding data about all the movies</td>
+        </tr>
+        <tr>
+          <td scope="row">
+            Return data (description, genre, director, image URL, whether it’s featured or not) about a single
+            movie by title to the user
+          </td>
+          <td>/movies/[title]</td>
+          <td>GET</td>
+          <td>None</td>
+          <td>
+            A JSON object holding data about a single movie
+            <pre> <code>
+          {
+            Title: 'The Good, the Bad and the Ugly',
+            Description:'A bounty hunting scam joins two men in an uneasy alliance against a third in a race to find a fortune in gold buried in a remote cemetery.',
+            Genre: {
+              Name: 'Adventure',
+              Description:'A bounty hunting scam joins two men in an uneasy alliance against a third in a race to find a fortune in gold buried in a remote cemetery.',
+            },
+            Director: {
+              Name: 'Sergio Leone',
+              Bio: "Sergio Leone was virtually born into the cinema - he was the son of Roberto Roberti (A.K.A. Vincenzo Leone), one of Italy's cinema pioneers, and actress Bice Valerian.",
+              Birth: '1929',
+              Death: '1989',
+            },
+            ImagePath: 'theGoodtheBadandtheUgly.jpg',
+            Featured: true,
+            Actors: ['Clint Eastwood', 'Eli Wallach', 'Lee Van Cleef', 'Aldo Giuffrè'],
+          }</code></pre>
+          </td>
+        </tr>
+        <tr>
+          <td scope="row">Return data about a genre (description) by name/title (e.g., “Thriller”)</td>
+          <td>/movies/[genre]/[genreName]</td>
+          <td>GET</td>
+          <td>None</td>
+          <td>
+            A text message showing the description of the genre: <br />
+            Thriller film, also known as suspense film or suspense thriller, is a broad film genre that
+            involves excittement and suspense in the audience.
+          </td>
+        </tr>
+        <tr>
+          <td scope="row">Return data about a director (bio, birth year, death year) by name</td>
+          <td>/movies/[director]/[name]</td>
+          <td>GET</td>
+          <td>None</td>
+          <td>
+            A JSON object hodling data about a director
+            <pre><code>
+          {
+            Name: 'Christopher Nolan',
+            Bio: 'Best known for his cerebral, often nonlinear, storytelling, acclaimed writer-director Christopher Nolan was born on July 30, 1970, in London, England.',
+            Birth: '1970',
+            Death: '--',
+          }</code></pre>
+          </td>
+        </tr>
+        <tr>
+          <td scope="row">Return a list of ALL movies to the user</td>
+          <td>/users</td>
+          <td>GET</td>
+          <td>None</td>
+          <td>A JSON object holding data about all the users</td>
+        </tr>
+        <tr>
+          <td scope="row">Allow new users to register</td>
+          <td>/users</td>
+          <td>POST</td>
+          <td>
+            A JSON body holding user data to add, structured like:
+            <pre><code>
+          {
+            Username: String,
+            Password: String,
+            Email: String,
+            Birthday: Date
+          }</code></pre>
+          </td>
+          <td>
+            A JSON object holding data about the user that was added, including an ID:
+            <pre><code>
+              {
+                ID: Integer,
+                Username: String,
+                Password: String,
+                Email: String,
+                Birthday: Date
+              }
+            </code></pre>
+          </td>
+        </tr>
+        <tr>
+          <td scope="row">
+            Allow users to update their user info (username, password, email, date of birth)
+          </td>
+          <td>/users/[username]</td>
+          <td>PUT</td>
+          <td>
+            A JSON body holding user data to update, structured like:
+            <pre><code>
+            {
+              Username: String,
+              (required)
+              Password: String,
+              (required)
+              Email: String,
+              (required)
+              Birthday: Date
+            }
+          </code></pre>
+          </td>
+          <td>
+            A JSON object holding data about the user that was updated, including an ID:
+            <pre><code>
+              {
+                ID: Integer,
+                Username: String,
+                Password: String,
+                Email: String,
+                Birthday: Date
+              }
+            </code></pre>
+          </td>
+        </tr>
+        <tr>
+          <td scope="row">Allow users to add a movie to their list of favorites</td>
+          <td>/users/[username]/movies/[movieID]</td>
+          <td>POST</td>
+          <td>None</td>
+          <td>
+            A JSON object holding data about the user that was updated, including an ID:
+            <pre><code>
+              {
+                ID: Integer,
+                Username: String,
+                Password: String,
+                Email: String,
+                Birthday: Date
+                FavoriteMovies: [MovieID]
+              }
+            </code></pre>
+          </td>
+        </tr>
+        <tr>
+          <td scope="row">Allow users to remove a movie from their list of favorites</td>
+          <td>/users/[username]/movies/[movieID]</td>
+          <td>DELETE</td>
+          <td>None</td>
+          <td>
+            A JSON object holding data about the user's favorite movies
+            <pre><code>
+              {
+                ID: Integer,
+                Username: String,
+                Password: String,
+                Email: String,
+                Birthday: Date
+                FavoriteMovies: [MovieID]
+              }
+            </code></pre>
+          </td>
+        </tr>
+        <tr>
+          <td scope="row">Allow existing users to deregister</td>
+          <td>/users/[username]</td>
+          <td>DELETE</td>
+          <td>None</td>
+          <td>
+            A text message showing the status of the user's deregistration
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
 </html>
