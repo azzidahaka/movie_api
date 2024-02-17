@@ -88,13 +88,9 @@ app.get('/movies/:title', (req, res) => {
     })
   );
 });
-// Gets the data about a single movie, by name
-app.get('/movies/:title', (req, res) => {
-  res.json(
-    movies.find((movie) => {
-      return movie.Title === req.params.title;
-    })
-  );
+// Gets the data about a genre (description) by name
+app.get('/movies/genre/:genreName', (req, res) => {
+  res.send('Successful GET request returning data on all the students');
 });
 // Adds data for a new movie to our list of movies.
 app.post('/movies', (req, res) => {
