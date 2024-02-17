@@ -90,8 +90,38 @@ app.get('/movies/:title', (req, res) => {
 });
 // Gets the data about a genre (description) by name
 app.get('/movies/genre/:genreName', (req, res) => {
-  res.send('Successful GET request returning data on all the students');
+  res.send('Successful GET request returning data ');
 });
+
+// Gets the data about a director by name
+app.get('/movies/director/:name', (req, res) => {
+  res.send('Successful GET request returning data ');
+});
+// Gets the data about all users
+app.get('/users', (req, res) => {
+  res.send('Successful GET request returning data ');
+});
+// Allow new users to register
+app.post('/users', (req, res) => {
+  res.send('Successful post request ');
+});
+// Allow  users to update information
+app.put('/users/:name', (req, res) => {
+  res.send('Successful put request ');
+});
+// Allow users to add a movie to their list of favorites
+app.post('/users/:name/movies/:title', (req, res) => {
+  res.send('Successful post request ');
+});
+// Allow users to remove a movie from their list of favorites
+app.delete('/users/:name/movies/:title', (req, res) => {
+  res.send('Successful delete request ');
+});
+// Allow existing users to deregister
+app.delete('/users/:name', (req, res) => {
+  res.send('Successful delete request ');
+});
+
 // Adds data for a new movie to our list of movies.
 app.post('/movies', (req, res) => {
   let newMovie = req.body;
