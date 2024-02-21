@@ -22,8 +22,8 @@ app.get('/', (req, res) => {
 //return movies in json format
 app.get('/movies', async (req, res) => {
   await Movies.find()
-    .then((movie) => {
-      res.json(movie);
+    .then((movies) => {
+      res.json(movies);
     })
     .catch((err) => {
       consol.error(err);
@@ -32,19 +32,20 @@ app.get('/movies', async (req, res) => {
 });
 //Gets the data about a movie, by name
 app.get('/movies/:title', async (req, res) => {
-  await Movies.find({Title:req.params.title}).then((movie) => {
-      res.json(movie);
-    }) .catch((err) => {
+  await Movies.find({ Title: req.params.title })
+    .then((movies) => {
+      res.json(movies);
+    })
+    .catch((err) => {
       consol.error(err);
       res.status(500).send('Error:' + err);
     });
-
 });
 // Gets the data about a genre (description) by name
 app.get('/movies/genre/:genreName', async (req, res) => {
   await Movies.find({ 'Genre.Name': req.params.genreName })
-    .then((genre) => {
-      res.json(genre);
+    .then((movies) => {
+      res.json(movies);
     })
     .catch((err) => {
       consol.error(err);
@@ -53,16 +54,37 @@ app.get('/movies/genre/:genreName', async (req, res) => {
 });
 
 // Gets the data about a director by name
-app.get('/movies/director/:name', (req, res) => {
-  res.send('Successful GET request returning data ');
+app.get('/movies/director/:name', async (req, res) => {
+  await Movies.find({ 'Director.Name': req.params.name })
+    .then((movies) => {
+      res.json(movies);
+    })
+    .catch((err) => {
+      consol.error(err);
+      res.status(500).send('Error:' + err);
+    });
 });
 // Gets the data about all users
-app.get('/users', (req, res) => {
-  res.send('Successful GET request returning data ');
+app.get('/users', async(req, res) => {
+  await Users.find()
+    .then((users) => {
+      res.json(users);
+    })
+    .catch((err) => {
+      consol.error(err);
+      res.status(500).send('Error:' + err);
+    });
 });
 // Allow new users to register
-app.post('/users', (req, res) => {
-  res.send('Successful post request ');
+app.post('/users', async(req, res) => {
+  await Users.findOne({ Username: req.body.Username })
+    .then((users) => {
+      res.json(users);
+    })
+    .catch((err) => {
+      consol.error(err);
+      res.status(500).send('Error:' + err);
+    });
 });
 // Allow  users to update information
 app.put('/users/:name', (req, res) => {
