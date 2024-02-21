@@ -1,5 +1,6 @@
 //import from packages
 const express = require('express'),
+  bodyParser = require('body-parser'),
   mongoose = require('mongoose'),
   Models = require('./models.js'),
   morgan = require('morgan');
@@ -9,7 +10,7 @@ const app = express();
 
 const Movies = Models.Movie;
 const Users = Models.User;
-
+app.use(bodyParser.json());
 //log to console
 app.use(morgan('common'));
 // Serve static files from the 'public' directory
@@ -23,7 +24,7 @@ app.get('/', (req, res) => {
 app.get('/movies', async (req, res) => {
   await Movies.find()
     .then((movies) => {
-      res.json(movies);
+      res.status(201).json(movies);
     })
     .catch((err) => {
       consol.error(err);
@@ -34,7 +35,7 @@ app.get('/movies', async (req, res) => {
 app.get('/movies/:title', async (req, res) => {
   await Movies.find({ Title: req.params.title })
     .then((movies) => {
-      res.json(movies);
+      res.status(201).json(movies);
     })
     .catch((err) => {
       consol.error(err);
@@ -45,7 +46,7 @@ app.get('/movies/:title', async (req, res) => {
 app.get('/movies/genre/:genreName', async (req, res) => {
   await Movies.find({ 'Genre.Name': req.params.genreName })
     .then((movies) => {
-      res.json(movies);
+      res.status(201).json(movies);
     })
     .catch((err) => {
       consol.error(err);
@@ -57,7 +58,7 @@ app.get('/movies/genre/:genreName', async (req, res) => {
 app.get('/movies/director/:name', async (req, res) => {
   await Movies.find({ 'Director.Name': req.params.name })
     .then((movies) => {
-      res.json(movies);
+      res.status(201).json(movies);
     })
     .catch((err) => {
       consol.error(err);
@@ -68,7 +69,7 @@ app.get('/movies/director/:name', async (req, res) => {
 app.get('/users', async(req, res) => {
   await Users.find()
     .then((users) => {
-      res.json(users);
+      res.status(201).json(users);
     })
     .catch((err) => {
       consol.error(err);
@@ -79,20 +80,20 @@ app.get('/users', async(req, res) => {
 /* Expect JSON in this format
 {
   ID: Integer,
-  Username: String,
+  UserName: String,
   Password: String,
   Email: String,
   Birthday: Date
 }*/
 app.post('/users', async (req, res) => {
-  await Users.findOne({ Username: req.body.Username })
+  await Users.findOne({ UserName: req.body.UserName })
     .then((user) => {
       if (user) {
-        return res.status(400).send(req.body.Username + 'already exists');
+        return res.status(400).send(req.body.UserName + 'already exists');
       } else {
         Users
           .create({
-            Username: req.body.Username,
+            UserName: req.body.UserName,
             Password: req.body.Password,
             Email: req.body.Email,
             Birthday: req.body.Birthday
@@ -109,10 +110,38 @@ app.post('/users', async (req, res) => {
       res.status(500).send('Error: ' + error);
     });
 });
+
 // Allow  users to update information
-app.put('/users/:name', (req, res) => {
-  res.send('Successful put request ');
+/* Expect JSON in this format
+{
+  UserName: String,
+  (required)
+  Password: String,
+  (required)
+  Email: String,
+  (required)
+  Birthday: Date
+}*/
+app.put('/users/:userName', async (req, res) => {
+  await Users.findOneAndUpdate({ UserName: req.params.userName }, { $set:
+    {
+      UserName: req.body.UserName,
+      Password: req.body.Password,
+      Email: req.body.Email,
+      Birthday: req.body.Birthday
+    }
+  },
+  { new: true }) // This line makes sure that the updated document is returned
+  .then((updatedUser) => {
+    res.json(updatedUser);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error:'  + err);
+  })
+
 });
+
 // Allow users to add a movie to their list of favorites
 app.post('/users/:name/movies/:title', (req, res) => {
   res.send('Successful post request ');
@@ -136,18 +165,6 @@ app.post('/movies', (req, res) => {
     newMovie.id = uuid.v4();
     movies.push(newMovie);
     res.status(201).send(newMovie);
-  }
-});
-// Deletes a movie from list by ID
-app.delete('/movies/:id', (req, res) => {
-  let movie = movies.find((movie) => {
-    return movie.id === req.params.id;
-  });
-  if (movie) {
-    movies = movies.filter((obj) => {
-      return obj.id !== req.params.id;
-    });
-    res.status(201).send('movie ' + req.params.id + ' was deleted.');
   }
 });
 //respond with error message if a request fails
