@@ -55,9 +55,9 @@ app.get('/movies/genre/:genreName', async (req, res) => {
 
 // Gets the data about a director by name
 app.get('/movies/director/:name', async (req, res) => {
-  await Movies.find({ 'Director.Name': req.params.name })
+  await Movies.findOne({ 'Director.Name': req.params.name })
     .then((movies) => {
-      res.status(201).json(movies);
+      res.status(201).json(movies.Director);
     })
     .catch((err) => {
       console.error(err);
