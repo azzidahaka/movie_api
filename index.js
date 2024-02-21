@@ -122,7 +122,30 @@ app.delete('/users/:name', (req, res) => {
   res.send('Successful delete request ');
 });
 
-
+// Adds data for a new movie to our list of movies.
+app.post('/movies', (req, res) => {
+  let newMovie = req.body;
+  if (!newMovie.Title) {
+    const message = 'Missing title in request body';
+    res.status(400).send(message);
+  } else {
+    newMovie.id = uuid.v4();
+    movies.push(newMovie);
+    res.status(201).send(newMovie);
+  }
+});
+// Deletes a movie from list by ID
+app.delete('/movies/:id', (req, res) => {
+  let movie = movies.find((movie) => {
+    return movie.id === req.params.id;
+  });
+  if (movie) {
+    movies = movies.filter((obj) => {
+      return obj.id !== req.params.id;
+    });
+    res.status(201).send('movie ' + req.params.id + ' was deleted.');
+  }
+});
 //respond with error message if a request fails
 app.use((err, req, res, next) => {
   console.error(err.stack);
