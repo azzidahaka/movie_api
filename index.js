@@ -26,7 +26,7 @@ app.get('/movies', async (req, res) => {
       res.status(201).json(movies);
     })
     .catch((err) => {
-      consol.error(err);
+      console.error(err);
       res.status(500).send('Error:' + err);
     });
 });
@@ -37,18 +37,18 @@ app.get('/movies/:title', async (req, res) => {
       res.status(201).json(movies);
     })
     .catch((err) => {
-      consol.error(err);
+      console.error(err);
       res.status(500).send('Error:' + err);
     });
 });
 // Gets the data about a genre (description) by name
 app.get('/movies/genre/:genreName', async (req, res) => {
-  await Movies.find({ 'Genre.Name': req.params.genreName })
+  await Movies.findOne({ 'Genre.Name': req.params.genreName })
     .then((movies) => {
-      res.status(201).json(movies);
+      res.status(201).send(movies.Genre.Description);
     })
     .catch((err) => {
-      consol.error(err);
+      console.error(err);
       res.status(500).send('Error:' + err);
     });
 });
@@ -60,7 +60,7 @@ app.get('/movies/director/:name', async (req, res) => {
       res.status(201).json(movies);
     })
     .catch((err) => {
-      consol.error(err);
+      console.error(err);
       res.status(500).send('Error:' + err);
     });
 });
@@ -71,7 +71,7 @@ app.get('/users', async (req, res) => {
       res.status(201).json(users);
     })
     .catch((err) => {
-      consol.error(err);
+      console.error(err);
       res.status(500).send('Error:' + err);
     });
 });
