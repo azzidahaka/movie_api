@@ -46,7 +46,33 @@
           <td>/movies</td>
           <td>GET</td>
           <td>None</td>
-          <td>A JSON object holding data about all the movies</td>
+          <td>A JSON object holding data about all the movies
+            <pre> <code>
+              {
+                "Genre": {
+                    "Name": "Drama",
+                    "Description": "Drama film is a genre that relies on the emotional and relational development of realistic characters"
+                },
+                "Director": {
+                    "Name": "Frank Darabont",
+                    "Bio": "Three-time Oscar nominee Frank Darabont was born in a refugee camp in 1959 in Montbeliard, France, the son of Hungarian parents who had fled Budapest during the failed 1956 Hungarian revolution.",
+                    "Birth": "1959",
+                    "Death": "--"
+                },
+                "_id": "65c0804010df10674529a759",
+                "Title": "The Shawshank Redemption",
+                "Description": "Over the course of several years, two convicts form a friendship, seeking consolation and, eventually, redemption through basic compassion.",
+                "ImagePath": "theshawshankredemption.jpg",
+                "Featured": true,
+                "Actors": [
+                    "Tim Robbins",
+                    "Morgan Freeman",
+                    "Bob Gunton",
+                    "William Sadler"
+                ]
+            }</code></pre>
+          </td>
+
         </tr>
         <tr>
           <td scope="row">
@@ -106,33 +132,25 @@
           </td>
         </tr>
         <tr>
-          <td scope="row">Return a list of ALL movies to the user</td>
+          <td scope="row">Return a list of ALL Users</td>
           <td>/users</td>
           <td>GET</td>
           <td>None</td>
           <td>
             A JSON object holding data about all the movies
             <pre><code>
-            {
-              "Genre": {
-                  "Name": "Thriller",
-                  "Description": "Thriller film, also known as suspense film or suspense thriller, is a broad film genre that involves excittement and suspense in the audience."
-              },
-              "Director": {
-                  "Name": "Jonathan Demme",
-                  "Bio": "Robert Jonathan Demme was an American director, producer, and screenwriter.",
-                  "Birth": "1944",
-                  "Death": "2017"
-              },
-              "_id": "65c0743610df10674529a758",
-              "Title": "Silence of the Lambs",
-              "Description": "A young FBI cadet must recieve the help of an incarcerated and manipulative cannibal killer to help catch another serial killer.",
-              "ImagePath": "silenceofthelambs.png",
-              "Featured": true,
-              "Actors": [
-                  "Anthony Hopkins",
-                  "Jodie Foster"
-              ]
+              {
+                "_id": "65c1cdab10df10674529a767",
+                "Name": "Tobi",
+                "Password": "password11",
+                "Email": "tobi@example.com",
+                "Birthday": "1990-01-09T00:00:00.000Z",
+                "FavoriteMovies": [
+                    "65c092d910df10674529a760",
+                    "65c092dd10df10674529a761",
+                    "65c08bcb10df10674529a75a",
+                    "65c08bcb10df10674529a75a"
+                ]
             }
         </code></pre>
           </td>
