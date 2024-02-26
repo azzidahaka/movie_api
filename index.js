@@ -5,7 +5,8 @@ const express = require('express'),
   morgan = require('morgan');
 const { check, validationResult } = require('express-validator');
 
-mongoose.connect('mongodb://localhost:27017/cfDB');
+//mongoose.connect('mongodb://localhost:27017/cfDB');
+mongoose.connect(process.env.CONNECTION_URI);
 //Assign variables for Model
 const Movies = Models.Movie;
 const Users = Models.User;
@@ -256,6 +257,6 @@ app.use((err, req, res, next) => {
 });
 // listen for requests
 const port = process.env.PORT || 8080;
-app.listen(port, '0.0.0.0',() => {
- console.log('Listening on Port ' + port);
+app.listen(port, '0.0.0.0', () => {
+  console.log('Listening on Port ' + port);
 });
