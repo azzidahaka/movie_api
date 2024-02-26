@@ -5,14 +5,29 @@ const express = require('express'),
   morgan = require('morgan');
 
 mongoose.connect('mongodb://localhost:27017/cfDB');
+//Assign variables for Model
 const Movies = Models.Movie;
 const Users = Models.User;
 const app = express();
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));//bodyparser
+//use passport for authentication
 let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
+//Use CORS to allow request from other domains
+let allowedOrigins = ['http://localhost:8080'];
+const cors = require('cors');
+app.use(cors({
+  origin: (origin, callback) => {
+    if(!origin) return callback(null, true);
+    if(allowedOrigins.indexOf(origin) === -1){
+      let message = 'The CORS policy for this application doesn’t allow access from origin ' + origin;
+      return callback(new Error(message), false);
+    }
+    return callback(null, true);
+  }
+}));
 //log to console
 app.use(morgan('common'));
 // Serve static files from the 'public' directory
