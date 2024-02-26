@@ -103,6 +103,7 @@ app.get('/users', async (req, res) => {
   Birthday: Date
 }*/
 app.post('/users', async (req, res) => {
+  let hashedPassword = Users.hashPassword(req.body.Password);
   await Users.findOne({ UserName: req.body.UserName })
     .then((user) => {
       if (user) {
@@ -110,7 +111,7 @@ app.post('/users', async (req, res) => {
       } else {
         Users.create({
           UserName: req.body.UserName,
-          Password: req.body.Password,
+          Password: hashedPassword,
           Email: req.body.Email,
           Birthday: req.body.Birthday,
         })
