@@ -17,21 +17,9 @@ app.use(express.urlencoded({ extended: true })); //bodyparser
 let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
-//Use CORS to allow request from other domains
-let allowedOrigins = ['http://localhost:8080','https://the-movies-flix-a42e388950f3.herokuapp.com/'];
+//Use CORS to allow request from all domains
 const cors = require('cors');
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      if (!origin) return callback(null, true);
-      if (allowedOrigins.indexOf(origin) === -1) {
-        let message = 'The CORS policy for this application doesn’t allow access from origin ' + origin;
-        return callback(new Error(message), false);
-      }
-      return callback(null, true);
-    },
-  })
-);
+app.use(cors());
 //log to console
 app.use(morgan('common'));
 // Serve static files from the 'public' directory
