@@ -6,7 +6,7 @@ const express = require('express'),
 const { check, validationResult } = require('express-validator');
 
 //mongoose.connect('mongodb://localhost:27017/cfDB');
-mongoose.connect(process.env.CONNECTION_URI);
+mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 //Assign variables for Model
 const Movies = Models.Movie;
 const Users = Models.User;
