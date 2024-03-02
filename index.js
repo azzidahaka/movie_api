@@ -18,7 +18,7 @@ let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
 //Use CORS to allow request from other domains
-let allowedOrigins = ['http://localhost:8080'];
+let allowedOrigins = ['http://localhost:8080','https://the-movies-flix-a42e388950f3.herokuapp.com/'];
 const cors = require('cors');
 app.use(
   cors({
