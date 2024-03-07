@@ -11,15 +11,15 @@ mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnified
 const Movies = Models.Movie;
 const Users = Models.User;
 const app = express();
+//Use CORS to allow request from all domains
+const cors = require('cors');
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); //bodyparser
 //use passport for authentication
 let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
-//Use CORS to allow request from all domains
-const cors = require('cors');
-app.use(cors());
 //log to console
 app.use(morgan('common'));
 // Serve static files from the 'public' directory
