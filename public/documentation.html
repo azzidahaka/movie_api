@@ -4,8 +4,7 @@
     <meta charset="UTF-8" />
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
+      content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
       table {
@@ -46,7 +45,8 @@
           <td>/movies</td>
           <td>GET</td>
           <td>None</td>
-          <td>A JSON object holding data about all the movies
+          <td>
+            A JSON object holding data about all the movies
             <pre> <code>
               {
                 "Genre": {
@@ -72,7 +72,6 @@
                 ]
             }</code></pre>
           </td>
-
         </tr>
         <tr>
           <td scope="row">
@@ -139,7 +138,7 @@
             A JSON body holding user data to add, structured like:
             <pre><code>
           {
-            Username: String,
+            UserName: String,
             Password: String,
             Email: String,
             Birthday: Date
@@ -149,8 +148,8 @@
             A JSON object holding data about the user that was added, including an ID:
             <pre><code>
               {
-                ID: Integer,
-                Username: String,
+                _id: Integer,
+                UserName: String,
                 Password: String,
                 Email: String,
                 Birthday: Date
@@ -168,7 +167,7 @@
             A JSON body holding user data to update, structured like:
             <pre><code>
             {
-              Username: String,
+              UserName: String,
               (required)
               Password: String,
               (required)
@@ -182,8 +181,8 @@
             A JSON object holding data about the user that was updated, including an ID:
             <pre><code>
               {
-                ID: Integer,
-                Username: String,
+                _id: Integer,
+                UserName: String,
                 Password: String,
                 Email: String,
                 Birthday: Date
@@ -200,8 +199,8 @@
             A JSON object holding data about the user that was updated, including an ID:
             <pre><code>
               {
-                ID: Integer,
-                Username: String,
+                _id: Integer,
+                UserName: String,
                 Password: String,
                 Email: String,
                 Birthday: Date
@@ -219,8 +218,8 @@
             A JSON object holding data about the user's favorite movies
             <pre><code>
               {
-                ID: Integer,
-                Username: String,
+                _id: Integer,
+                UserName: String,
                 Password: String,
                 Email: String,
                 Birthday: Date
