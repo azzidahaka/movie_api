@@ -107,7 +107,8 @@ app.post(
             Password: hashedPassword,
             Email: req.body.Email,
             Birthday: req.body.Birthday,
-          })
+          },
+          { new: true })
             .then((user) => {
               res.status(201).json(user);
             })
@@ -208,7 +209,8 @@ app.delete(
     }
     await Users.findOneAndUpdate(
       { UserName: req.params.userName },
-      { $pull: { FavoriteMovies: req.params.movieId } }
+      { $pull: { FavoriteMovies: req.params.movieId } },
+      { new: true }
     )
       .then((user) => {
         res.json(user);
@@ -224,13 +226,14 @@ app.delete('/users/:userName', passport.authenticate('jwt', { session: false }),
   if (req.user.UserName !== req.params.userName) {
     return res.status(400).send('Permission denied');
   }
-  await Users.findOneAndDelete({ UserName: req.params.userName })
+  await Users.findOneAndDelete({ UserName: req.params.userName }, { new: true })
     .then((user) => {
       if (!user) {
         res.status(400).send(req.params.userName + ' was not found');
       } else {
         res.status(200).send(req.params.userName + ' was deleted.');
       }
+
     })
     .catch((err) => {
       console.error(err);
