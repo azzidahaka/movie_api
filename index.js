@@ -107,9 +107,7 @@ app.post(
             Password: hashedPassword,
             Email: req.body.Email,
             Birthday: req.body.Birthday,
-          },
-          { new: true })
-            .then((user) => {
+          }).then((user) => {
               res.status(201).json(user);
             })
             .catch((error) => {
@@ -233,7 +231,6 @@ app.delete('/users/:userName', passport.authenticate('jwt', { session: false }),
       } else {
         res.status(200).send(req.params.userName + ' was deleted.');
       }
-
     })
     .catch((err) => {
       console.error(err);
