@@ -107,7 +107,8 @@ app.post(
             Password: hashedPassword,
             Email: req.body.Email,
             Birthday: req.body.Birthday,
-          }).then((user) => {
+          })
+            .then((user) => {
               res.status(201).json(user);
             })
             .catch((error) => {
@@ -144,6 +145,17 @@ app.put(
     check('Email', 'Email does not appear to be valid').isEmail(),
   ],
   async (req, res) => {
+    await Users.findOne({ UserName: req.params.UserName })
+      .then((user) => {
+        if (user) {
+          return res.status(400).send(req.body.UserName + ' already exists');
+        }
+      })
+      .catch((error) => {
+        console.error(err);
+        res.status(404).send('Error:' + err);
+      });
+
     if (req.user.UserName !== req.params.userName) {
       return res.status(400).send('Permission denied');
     }
